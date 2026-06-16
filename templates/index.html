@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>CashTracker</title>
+  <link rel="stylesheet" href="/static/style.css">
+  <link rel="manifest" href="/static/manifest.json">
+  <link rel="apple-touch-icon" href="/static/icon-192.png">
+  <meta name="theme-color" content="#0f0f0f">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="CashTracker">
+</head>
+<body>
+  <header>
+    <div class="header-inner">
+      <h1>&#x1F4B0; CashTracker</h1>
+      <div class="total-block">
+        <span class="total-label">Cash disponible</span>
+        <span class="total-amount" id="total-cash">0,00&nbsp;&#x20AC;</span>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <!-- Inventory -->
+    <section class="card" id="inventory-section">
+      <h2>Inventaire</h2>
+      <div class="denom-group">
+        <div class="denom-group-title">Billets</div>
+        <div id="bills-list" class="denom-list"></div>
+      </div>
+      <div class="denom-group">
+        <div class="denom-group-title">Pi&#x00E8;ces</div>
+        <div id="coins-list" class="denom-list"></div>
+      </div>
+    </section>
+
+    <!-- Add Transaction -->
+    <section class="card" id="add-section">
+      <h2>Nouvelle transaction</h2>
+      <form id="transaction-form" novalidate>
+        <div class="type-toggle" role="group" aria-label="Type de transaction">
+          <button type="button" class="toggle-btn active" data-type="expense">&#x2212; D&#x00E9;pense</button>
+          <button type="button" class="toggle-btn" data-type="income">&#x2B; Revenu</button>
+        </div>
+
+        <div class="form-group">
+          <label for="amount">Montant (&#x20AC;)</label>
+          <input type="number" id="amount" inputmode="decimal" step="0.01" min="0.01"
+                 placeholder="0.00" autocomplete="off" required>
+        </div>
+
+        <div class="form-group">
+          <label for="category">Cat&#x00E9;gorie</label>
+          <select id="category" required></select>
+        </div>
+
+        <div class="form-group">
+          <label for="description">Description <span class="optional">(optionnel)</span></label>
+          <input type="text" id="description" placeholder="Note&#x2026;" autocomplete="off">
+        </div>
+
+        <button type="submit" class="btn-submit expense-submit" id="submit-btn">
+          Valider la d&#x00E9;pense
+        </button>
+      </form>
+    </section>
+
+    <!-- Monthly Summary -->
+    <section class="card" id="summary-section">
+      <h2>R&#x00E9;sum&#x00E9; du mois</h2>
+      <div class="summary-grid">
+        <div class="summary-card">
+          <span class="summary-label">D&#x00E9;pens&#x00E9;</span>
+          <span class="summary-amount expense-color" id="monthly-expense">0,00&nbsp;&#x20AC;</span>
+        </div>
+        <div class="summary-card">
+          <span class="summary-label">Re&#x00E7;u</span>
+          <span class="summary-amount income-color" id="monthly-income">0,00&nbsp;&#x20AC;</span>
+        </div>
+        <div class="summary-card">
+          <span class="summary-label">Solde</span>
+          <span class="summary-amount" id="monthly-balance">0,00&nbsp;&#x20AC;</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- History -->
+    <section class="card" id="history-section">
+      <h2>Historique</h2>
+      <div id="transactions-list">
+        <div class="empty-state">Chargement&#x2026;</div>
+      </div>
+    </section>
+  </main>
+
+  <script src="/static/app.js"></script>
+  <script>
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.register('/static/sw.js').catch(() => {});
+    }
+  </script>
+</body>
+</html>
