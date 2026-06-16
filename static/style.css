@@ -25,6 +25,14 @@ html {
   scroll-behavior: smooth;
 }
 
+button,
+input,
+select,
+a,
+[role="button"] {
+  touch-action: manipulation;
+}
+
 body {
   background: var(--bg);
   color: var(--text);
