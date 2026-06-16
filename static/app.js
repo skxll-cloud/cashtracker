@@ -209,7 +209,14 @@ document.getElementById('transaction-form').addEventListener('submit', async e =
   }
 });
 
+// ── Splash ─────────────────────────────────────────────────────────────────
+function hideSplash() {
+  const splash = document.getElementById('splash');
+  if (!splash) return;
+  splash.classList.add('hidden');
+  splash.addEventListener('transitionend', () => splash.remove(), { once: true });
+}
+
 // ── Init ───────────────────────────────────────────────────────────────────
 setType('expense');
-loadInventory();
-loadTransactions();
+Promise.all([loadInventory(), loadTransactions()]).then(hideSplash);

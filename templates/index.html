@@ -4,6 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
   <title>CashTracker</title>
+  <link rel="icon" type="image/svg+xml" href="/static/favicon.svg">
   <link rel="stylesheet" href="/static/style.css">
   <link rel="manifest" href="/static/manifest.json">
   <link rel="apple-touch-icon" href="/static/icon-192.png">
@@ -13,6 +14,20 @@
   <meta name="apple-mobile-web-app-title" content="CashTracker">
 </head>
 <body>
+  <!-- Splash screen — hidden via JS when data is ready, no setTimeout -->
+  <div id="splash" aria-hidden="true">
+    <div class="splash-logo">
+      <div class="splash-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="72" height="72">
+          <circle cx="32" cy="32" r="32" fill="#3b82f6"/>
+          <circle cx="32" cy="32" r="26" fill="none" stroke="#1d4ed8" stroke-width="3"/>
+          <text x="32" y="43" text-anchor="middle" font-size="30" font-family="system-ui,sans-serif" font-weight="900" fill="white">&#x20AC;</text>
+        </svg>
+      </div>
+      <div class="splash-name">CashTracker</div>
+    </div>
+  </div>
+
   <header>
     <div class="header-inner">
       <h1>&#x1F4B0; CashTracker</h1>
