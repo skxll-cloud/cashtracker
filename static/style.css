@@ -131,8 +131,8 @@ main {
 .denom-row {
   display: flex;
   align-items: center;
-  gap: 8px;
-  padding: 10px 14px;
+  gap: 6px;
+  padding: 7px 10px;
   background: var(--bg);
   border: 1px solid var(--border);
   border-radius: var(--radius-sm);
@@ -143,11 +143,18 @@ main {
   border-color: #383838;
 }
 
+.denom-visual {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  flex-shrink: 0;
+}
+
 .denom-label {
-  flex: 0 0 46px;
-  font-size: 1rem;
+  font-size: 0.78rem;
   font-weight: 700;
   color: var(--text);
+  min-width: 22px;
 }
 
 .denom-controls {
@@ -200,12 +207,14 @@ main {
 }
 
 .denom-subtotal {
-  flex: 0 0 76px;
+  flex: 0 0 68px;
   text-align: right;
-  font-size: 0.82rem;
+  font-size: 0.72rem;
   font-weight: 500;
   color: var(--muted);
   white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .denom-subtotal.nonzero {
