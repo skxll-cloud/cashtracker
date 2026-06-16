@@ -370,13 +370,32 @@ document.getElementById('transaction-form').addEventListener('submit', async e =
 });
 
 // ── Splash ─────────────────────────────────────────────────────────────────
+let _splashDone = false;
+
 function hideSplash() {
-  const splash = document.getElementById('splash');
-  if (!splash) return;
-  splash.classList.add('hidden');
-  splash.addEventListener('transitionend', () => splash.remove(), { once: true });
+  if (_splashDone) return;
+  _splashDone = true;
+
+  const el = document.getElementById('splash');
+  if (!el) return;
+
+  el.classList.add('hidden');
+
+  // Remove from DOM once the CSS fade-out ends.
+  // iOS Safari sometimes skips transitionend, so the setTimeout is the safety net.
+  const remove = () => { if (el.parentNode) el.parentNode.removeChild(el); };
+  el.addEventListener('transitionend', remove, { once: true });
+  setTimeout(remove, 500); // 350ms transition + 150ms buffer
 }
 
 // ── Init ───────────────────────────────────────────────────────────────────
 setType('expense');
-Promise.all([loadInventory(), loadTransactions()]).then(hideSplash);
+
+// Primary: hide as soon as both API calls finish (success or error)
+Promise.all([loadInventory(), loadTransactions()]).then(hideSplash).catch(hideSplash);
+
+// Fallback 1: window load event — fires after all resources are ready on iOS
+window.addEventListener('load', hideSplash, { once: true });
+
+// Fallback 2: hard cap — splash never stays longer than 3 s no matter what
+setTimeout(hideSplash, 3000);
